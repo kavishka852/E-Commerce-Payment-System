@@ -42,4 +42,22 @@ class BankTransfer extends Payment {
                 " with reference " + referenceCode);
         markAsCompleted();
     }
+
+    @Override
+    public boolean validate() {
+        if (bankName == null || bankName.trim().isEmpty()) {
+            System.out.println("Validation failed: Bank name is required");
+            return false;
+        }
+        if (accountNumber == null || accountNumber.trim().isEmpty()) {
+            System.out.println("Validation failed: Account number is required");
+            return false;
+        }
+        if (amount <= 0) {
+            System.out.println("Validation failed: Amount must be positive");
+            return false;
+        }
+        System.out.println("Bank transfer validation passed");
+        return true;
+    }
 }

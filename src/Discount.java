@@ -1,4 +1,4 @@
-package PACKAGE_NAME;
-
-public class Discount {
+public interface Discount {
+    double applyDiscount(double percent);
+    double finalAmount();
 }

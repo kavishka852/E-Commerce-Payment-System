@@ -1,4 +1,4 @@
-class CardPayment extends Payment {
+abstract class CardPayment extends Payment {
     protected String cardNumber;
     protected String cardHolderName;
     protected String expiryDate;
@@ -36,8 +36,25 @@ class CardPayment extends Payment {
     }
 
     @Override
-    public void processPayment() {
-        System.out.println("Authorizing card payment for " + cardHolderName + " ...");
+    public boolean validate() {
+        if (cardNumber == null || cardNumber.trim().isEmpty()) {
+            System.out.println("Card validation failed: Card number is required");
+            return false;
+        }
+        if (cardHolderName == null || cardHolderName.trim().isEmpty()) {
+            System.out.println("Card validation failed: Card holder name is required");
+            return false;
+        }
+        if (expiryDate == null || expiryDate.trim().isEmpty()) {
+            System.out.println("Card validation failed: Expiry date is required");
+            return false;
+        }
+        if (amount <= 0) {
+            System.out.println("Card validation failed: Amount must be positive");
+            return false;
+        }
+        System.out.println("Card validation passed");
+        return true;
     }
 
     public void validateCard() {
